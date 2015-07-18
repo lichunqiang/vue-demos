@@ -1,0 +1,18 @@
+{
+  "name": "vue.js",
+  "version": "0.0.0",
+  "authors": [
+    "lichunqiang <light-li@hotmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "vue": "~0.12.7"
+  }
+}

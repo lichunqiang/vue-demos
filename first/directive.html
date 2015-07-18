@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Derictive</title>
+  <link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+  <script src="//cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div id="test1" class="col-md-12">
+        <input type="text" v-model="msg"> {{msg}}
+        <div v-my-directive="msg"></div>
+
+        <div v-demo="LightSlateGray : msg"></div>
+
+        <div v-literal-dir="{{msg}}">{{msg}}</div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Filters</h3>
+          </div>
+          <div id="filters" class="panel-body">
+            <span v-text="message | reverse"></span>
+            <span v-text="message | wrap before after"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="../bower_components/vue/dist/vue.min.js"></script>
+  <script type="text/javascript">
+  //只运行update
+  // Vue.directive('my-directive', function(value) {
+  //   console.log(value)
+  // });
+  Vue.directive('my-directive', {
+    bind: function() {
+      console.log(this)
+    },
+    update: function(newValue, oldValue) {
+      //console.log(newValue, oldValue)
+    },
+    unbind: function() {
+      console.log('unbind')
+    }
+  });
+  Vue.directive('demo', {
+    // isLiteral: true,
+    bind: function() {
+      console.log(this)
+      this.el.style.color = '#fff'
+      this.el.style.backgroundColor = this.arg
+    },
+    update: function(value) {
+      this.el.innerHTML =
+        'name - '       + this.name + '<br>' +
+        'raw - '        + this.raw + '<br>' +
+        'expression - ' + this.expression + '<br>' +
+        'argument - '   + this.arg + '<br>' +
+        'value - '      + value
+    }
+  });
+  //直接指令
+  Vue.directive('literal-dir', {
+    isLiteral: true,
+    bind: function() {
+      console.log(this)
+      console.log(this.expression) //v-literal-dir="{{msg}}" 动态直接量，没有update则只计算一次
+    },
+    update: function() {
+      console.log(this)
+    }
+  })
+  var test1= new Vue({
+    el: '#test1',
+    data: {
+      msg: 'testaaa'
+    }
+  });
+  //filters ----
+  Vue.filter('reverse', function(value) {
+    return value.split('').reverse().join('');
+  });
+
+  Vue.filter('wrap', function(value, begin, end) {
+    console.log('wrap',   this)
+    return begin + value + end
+  });
+  //双向过滤器
+  Vue.filter('check-email', {
+    //可选，展示用 
+    read: function(val) {
+      return val;
+    }, 
+    write: function(val, oldVal) {
+      return isEmail(val) ? val : oldVal;
+    }
+  });
+  Vue.filter('concat', function(value, key) {
+    return value + this[key];
+  })
+  var filter = new Vue({
+    el: '#filters',
+    data: {
+      message: 'hello world'
+    }
+  });
+
+
+  
+  </script>
+</body>
+</html>

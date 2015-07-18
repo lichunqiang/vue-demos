@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>入门</title>
+	<link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+	<script src="//cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+	<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <style type="text/css">
+  li.done {
+    color: #7f8c8d;
+    text-decoration: line-through;
+  }
+  </style>
+</head>
+<body>
+  <div class="container">
+  	<nav class="navbar navbar-inverse">
+  		<a class="navbar-brand" href="#">Title</a>
+  		<ul class="nav navbar-nav">
+  			<li class="active">
+  				<a href="#home">Home</a>
+  			</li>
+  			<li>
+  				<a href="#todo">Todo</a>
+  			</li>
+        <li>
+          <a href="directive.html">指令</a>
+        </li>
+  		</ul>
+  	</nav>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div id="home" class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">测试1</h3>
+          </div>
+          <div id="test1" class="panel-body">
+            <input type="text" v-model="message">
+            <div class="alert alert-success">
+              <strong>实时消息：</strong> {{message}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+              <h3 class="panel-title">列表-简单列表</h3>
+            </div>
+            <div id="simpleList" class="panel-body">
+              <pre>
+                <code>
+                  var simpleList = new Vue({
+                    el: '#simpleList',
+                    data: {
+                      tags: ['Javascript', 'Vue.js']
+                    }
+                  });
+                </code>
+              </pre>
+              <ul class="list-group">
+                <li v-repeat="tags" class="list-group-item">{{$value}}</li>
+              </ul>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-primary">
+         <div class="panel-heading">
+           <h3 class="panel-title">表单</h3>
+         </div>
+         <div  id="form" class="panel-body">
+           <form action="" method="POST" role="form">
+             <legend>Form title</legend>
+           
+             <div class="form-group">
+               <label>Text</label>
+               <input type="text" class="form-control" placeholder="文本框" v-model="msg">
+               {{msg}}
+             </div>
+
+             <div class="form-group">
+               <label>radio</label>
+                <label class="radio-inline"><input type="radio" name="picked" value="one" v-model="picked">one</label>
+                <label class="radio-inline"><input type="radio" name="picked" value="two" v-model="picked">two</label>
+
+                {{picked}}
+             </div>
+            
+            <div class="form-group">
+              <label>single select</label>
+              <select name="test" class="form-control" v-model="selection">
+                <option value="selection-1">selection one</option>
+                <option value="selection-2">selection two</option>
+              </select>
+              {{selection}}
+            </div>
+
+            <div class="form-group">
+              <label>multiple select</label>
+              <select name="test" class="form-control" v-model="multiSelect" multiple="multiple">
+                <option value="one">one</option>
+                <option value="two">two</option>
+                <option value="three">three</option>
+              </select>
+              <pre>data: {{multiSelect}}</pre>
+            </div>
+
+            <div class="form-group">
+              <label>checkbox</label>
+              <input type="checkbox" v-model="checked"> {{checked ? 'yes' : 'no'}}
+            </div>
+            <div class="form-group">
+              <label>懒更新</label>
+              <input type="text" class="form-control" v-model="lazy" lazy>
+              改变之后才发生数据改动： {{lazy}}
+            </div>
+
+            <div class="form-group">
+              <label>number</label>
+              <input type="text" class="form-group" v-model="age" number>
+              {{age}}
+            </div>
+
+            <div class="form-group">
+              <select v-model="select1" options="optionOne" class="form-control"></select>
+              {{select1}}
+              <select v-model="select2" options="optionTwo" class="form-control"></select>
+              {{select2}}
+            </div>
+            <pre>{{$data|json}}</pre>
+             <button type="submit" class="btn btn-primary">Submit</button>
+           </form>
+         </div>
+       </div>   
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+              <h3 class="panel-title">可推到属性</h3>
+            </div>
+            <div id="computed" class="panel-body">
+              {{fullName}}
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div id="todo" class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">{{title}}</h3>
+          </div>
+          <div class="panel-body">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="添加新项目" v-model="item" >
+            </div>
+            <div class="form-group">
+              <button type="button" class="btn btn-default" v-on="click: add">Add</button>
+            </div>
+            <ul class="list-group">
+              <li class="list-group-item {{done ? 'done': ''}}" v-repeat="items" v-on="click: done=!done">{{$index}}-{{content}}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="../bower_components/vue/dist/vue.min.js"></script>
+  <script type="text/javascript">
+    var test1 = new Vue({
+      el: '#test1',
+      data: {
+        message: 'hello world'
+      }
+    });
+
+    var simpleList = new Vue({
+      el: '#simpleList',
+      data: {
+        tags: ['Javascript', 'Vue.js']
+      }
+    });
+    console.log(simpleList)
+    simpleList.tags.$set(1, 'awesome');
+    // simpleList.tags.$remove(0);
+    var computed = new Vue({
+      el: '#computed',
+      data: {
+        firstName: 'light',
+        lastName: ' chunqiang'
+      },
+      computed: {
+        // fullName: function() {
+        //   return this.firstName + ' ' + this.lastName;
+        // },
+        fullName: {
+          get: function() {
+            return this.firstName + ' ' + this.lastName;
+          },
+          set: function(newValue) {
+            var items = newValue.split(' ');
+            this.firstName = items[0];
+            this.lastName = items[items.length - 1];
+          }
+        }
+      }
+    });
+    computed.fullName = 'light of heaven';
+    var form = new Vue({
+      el: '#form',
+      data: {
+        msg: 'hi',
+        checked: true,
+        picked: 'one',
+        selection: 'one',
+        multiSelect: ['one', 'three'],
+        lazy: 'i am lazy update',
+        age: 12,
+        optionOne: [
+          {text: 'ahha', value: 'hollo'},
+          {text: 'Javascript', value: 'js'}
+        ],
+        optionTwo: [
+          {label: 'javascript', options: ['one', 'tow']}
+        ]
+      }
+    });
+    var todo = new Vue({
+      el: '#todo',
+      data: {
+        title: 'Todo list',
+        items: [
+          {done: false, content: 'this is todo builded by vue.js'},
+          {done: true, content: 'try with vue.js'}
+        ],
+        item: null
+      },
+      methods: {
+        add: function() {
+          this.items.push({done: false, content: this.item});
+          this.item = null;
+        },
+        remove: function() {
+
+        }
+      }
+    });
+  </script>
+</body>
+</html>
