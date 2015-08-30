@@ -10545,6 +10545,16 @@
 	
 	  partials: {
 	    'test': '<h3>{{msg}}</h3>'
+	  },
+	
+	  directives: {
+	    'bb': {
+	      bind: function bind() {
+	        this.el.addEventListener('click', function () {
+	          alert('xxxx');
+	        });
+	      }
+	    }
 	  }
 	};
 	module.exports = exports['default'];
@@ -10553,7 +10563,7 @@
 /* 77 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-39eec4b7\">\n  <h2 class=\"red\" v-on=\"click: trigger\">{{msg}}</h2>\n  <p>{{a}}</p>\n  <p> <partial name=\"test\"></partial>  </p>\n</div>";
+	module.exports = "<div class=\"v-39eec4b7\">\n  <h2 class=\"red\" v-on=\"click: trigger\">{{msg}}</h2>\n  <p v-bb=\"\">{{a}}</p>\n  <p> <partial name=\"test\"></partial>  </p>\n</div>";
 
 /***/ },
 /* 78 */

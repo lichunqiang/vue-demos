@@ -9,7 +9,7 @@
 <template>
 <div>
   <h2 class="red" v-on="click: trigger">{{msg}}</h2>
-  <p>{{a}}</p>
+  <p v-bb>{{a}}</p>
   <p> <partial name="test"></partial>  </p>
 </div>
 </template>
@@ -51,6 +51,16 @@
 
     partials: {
       'test': '<h3>{{msg}}</h3>'
+    },
+
+    directives: {
+      'bb': {
+        bind: function() {
+          this.el.addEventListener('click', function() {
+            alert('xxxx')
+          })
+        }
+      }
     }
   }
 </script>
